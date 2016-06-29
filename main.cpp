@@ -17,7 +17,7 @@
 //GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
 //LIABILITY, OR TORT(INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
-//ÎÄÏ×Ëã·¨µÄÊµÏÖ£¬²Î[ÖÜÁá, ÕÅÀöÑŞ, Ö£½¨¶¬,µÈ. ½ü¾°ÉãÓ°²âÁ¿ÖĞ±ê¼ÇµãµÄ×Ô¶¯¼ì²â[J]. Ó¦ÓÃ¿ÆÑ§Ñ§±¨, 2007, 25(3):288-294.]
+//æ–‡çŒ®ç®—æ³•çš„å®ç°ï¼Œå‚[å‘¨ç², å¼ ä¸½è‰³, éƒ‘å»ºå†¬,ç­‰. è¿‘æ™¯æ‘„å½±æµ‹é‡ä¸­æ ‡è®°ç‚¹çš„è‡ªåŠ¨æ£€æµ‹[J]. åº”ç”¨ç§‘å­¦å­¦æŠ¥, 2007, 25(3):288-294.]
 
 //#include "opencv2\opencv.hpp"
 #include "opencv\highgui.h"
@@ -35,7 +35,7 @@ int kernel_size = 3;
 char* window_name = "Circle Coding";
 //int bState = 1;
 
-//ÍÖÔ²ÖĞĞÄ£¬³¤¶ÌÖá°ë¾¶£¬Ğı×ª½Ç¡£
+//æ¤­åœ†ä¸­å¿ƒï¼Œé•¿çŸ­è½´åŠå¾„ï¼Œæ—‹è½¬è§’ã€‚
 struct Point2d
 {
 	double x;
@@ -73,14 +73,14 @@ int main()
 
 	cvCvtColor(src, gray, CV_BGR2GRAY);
 
-	/*******´Ë´¦µÚÈı¸ö²ÎÊıµÄÑ¡ÔñÊÇ¹Ø¼ü******/
+	/*******æ­¤å¤„ç¬¬ä¸‰ä¸ªå‚æ•°çš„é€‰æ‹©æ˜¯å…³é”®******/
 	cvSmooth(gray, gray,2,13,0);
-	/*******´Ë´¦µÚÈı¸ö²ÎÊıµÄÑ¡ÔñÊÇ¹Ø¼ü******/
+	/*******æ­¤å¤„ç¬¬ä¸‰ä¸ªå‚æ•°çš„é€‰æ‹©æ˜¯å…³é”®******/
 
-	cvThreshold(gray, dst, 200, 255, CV_THRESH_OTSU);   // ±ØĞë½øĞĞ¶şÖµ»¯
+	cvThreshold(gray, dst, 200, 255, CV_THRESH_OTSU);   // å¿…é¡»è¿›è¡ŒäºŒå€¼åŒ–
 //	cvCreateTrackbar("Min Threshold:", window_name, &lowThreshold, max_lowThreshold, on_trackbar);
 
-	//¿ªÔËËãÈ¥Ôë²¢ÅòÕÍÒ»´Î
+	//å¼€è¿ç®—å»å™ªå¹¶è†¨èƒ€ä¸€æ¬¡
 	cvErode(src, src, NULL, 1);
 	cvDilate(src,src,NULL,1);
 	cvDilate(src, src, NULL, 1);
@@ -123,9 +123,9 @@ void ScaleConstraint(IplImage *dst)
 	for (; cont; cont = cont->h_next)
 	{
 		result = cvApproxPoly(cont, sizeof(CvContour), stor,
-			CV_POLY_APPROX_DP, 0.9, 0);              //Ö¸¶¨¾«¶È±Æ½ü¶à±ßĞÎÇúÏß
+			CV_POLY_APPROX_DP, 0.9, 0);              //æŒ‡å®šç²¾åº¦é€¼è¿‘å¤šè¾¹å½¢æ›²çº¿
 
-		//³ß¶È¹æÔò
+		//å°ºåº¦è§„åˆ™
 		if (fabs(cvContourArea(cont, CV_WHOLE_SEQ))>1500 &&
 			4 * CV_PI*fabs(cvContourArea(result, CV_WHOLE_SEQ)) /
 			cvArcLength(result, CV_WHOLE_SEQ, -1) / cvArcLength(result, CV_WHOLE_SEQ, -1)>0.3)
@@ -192,14 +192,14 @@ void ShapeConstraint(IplImage* src)
 			PointArray2D32f[i].x = (float)PointArray[i].x;
 			PointArray2D32f[i].y = (float)PointArray[i].y;
 		}
-		//ÄâºÏµ±Ç°ÂÖÀª.
+		//æ‹Ÿåˆå½“å‰è½®å»“.
 		cvFitEllipse(PointArray2D32f, count, box);
 
 		center.x = cvRound(box->center.x);
 		center.y = cvRound(box->center.y);
 		size.width = cvRound(box->size.width*0.5);
 		size.height = cvRound(box->size.height*0.5);
-		box->angle =box->angle;              //×¢Òâ
+		box->angle =box->angle;              //æ³¨æ„
 
 		pt.x = box->center.x;
 		pt.y = box->center.y;
@@ -224,7 +224,7 @@ void ShapeConstraint(IplImage* src)
 //3rd step
 void GrayConstraint()
 {
-
+	//è¿™ä¸ªæ­¥éª¤æ²¡æ‡‚
 }
 
 //4th step
@@ -261,7 +261,7 @@ void SignCode(IplImage* src)
 	int s = 0;
 
 	IplImage *srcImg = cvCloneImage(src);
-	//¶Áµã±àÂëÊä³öĞòÁĞµ½list1
+	//è¯»ç‚¹ç¼–ç è¾“å‡ºåºåˆ—åˆ°list1
 	ReadCalData(list1, "pcd_out_order.txt");
 	//ReadCalData(list1, "circle_data.txt");
 
@@ -271,7 +271,7 @@ void SignCode(IplImage* src)
 	float mx[17], my[17];
 	int kk;
 
-	//¶ÔÂÖÀªÉÏµÄÃ¿¸öÏñËØµã½øĞĞ±àºÅ
+	//å¯¹è½®å»“ä¸Šçš„æ¯ä¸ªåƒç´ ç‚¹è¿›è¡Œç¼–å·
 	for (int i = 0; i<17; i++)
 	{
 		for (int j = 0; j<60; j++)
@@ -303,7 +303,7 @@ void SignCode(IplImage* src)
 
 	int ck[17];
 
-	//Ã¿¸ô24¡ã×÷ÎªÒ»¸ö¶ş½øÖÆÎ»£¬¹²15Î»
+	//æ¯éš”24Â°ä½œä¸ºä¸€ä¸ªäºŒè¿›åˆ¶ä½ï¼Œå…±15ä½
 	int tempcode[15];
 	for (int i = 0; i<17; i++)
 	{	
@@ -314,7 +314,7 @@ void SignCode(IplImage* src)
 			else tempcode[j / 4] = 0;
 		}
 
-		//È¡¶ş½øÖÆÂë¶ÔÓ¦µÄ×îĞ¡Ê®½øÖÆÊı×÷Îª±àÂëÔªµÄID£¨code[i])
+		//å–äºŒè¿›åˆ¶ç å¯¹åº”çš„æœ€å°åè¿›åˆ¶æ•°ä½œä¸ºç¼–ç å…ƒçš„IDï¼ˆcode[i])
 		for (int j = 0; j<15; j++)
 		{
 			if (tempcode[j] == 0 && tempcode[(j + 1) % 15] == 1 && tempcode[(j + 2) % 15] == 1
@@ -359,7 +359,7 @@ void SignCode(IplImage* src)
 }
 
 ///<summary>
-///Ñ°ÕÒ×î½üµã£¬·µ»ØË÷ÒıÖµ
+///å¯»æ‰¾æœ€è¿‘ç‚¹ï¼Œè¿”å›ç´¢å¼•å€¼
 ///</summary>
 int FindNearestDot(int x, int y)
 {
@@ -385,14 +385,14 @@ void ReadCalData(vector<Point2d>&list1, char *filename)
 	int i;
 	double px, py, wx, wy, angle;
 	//char* filename;
-	//filename = "circle_data.txt";              //¶ÁÈëÎÄ¼ş"asc.txt"
+	//filename = "circle_data.txt";              //è¯»å…¥æ–‡ä»¶"asc.txt"
 	ifstream fm;
 	fm.open(filename);
 	if (fm)
 	{
 		while (fm.good())
 		{
-			fm >> i >> px >> py >> wx >> wy >> angle;                   //Ã¿¸öÊı¾İµãÊıÖµ
+			fm >> i >> px >> py >> wx >> wy >> angle;                   //æ¯ä¸ªæ•°æ®ç‚¹æ•°å€¼
 			Point2d pt4;
 			pt4.x = px;
 			pt4.y = py;
